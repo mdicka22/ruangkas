@@ -602,17 +602,13 @@
       }
       html { scroll-padding-top: 14px; background: #f4f7fb; }
       body { background: #f4f7fb; }
-      body::before {
-        width: 280px; height: 280px; left: auto; right: -145px; top: -140px;
-        background: #e7efff;
-        animation: none;
-      }
+      body::before { display: none; }
       body::after { display: none; }
       .app { width: 100%; padding: 0 14px 112px; }
       .topbar {
         min-height: 86px; margin: 0; padding: 19px 4px 13px; align-items: center;
       }
-      .mascot-wrap { display: flex; align-items: center; gap: 7px; margin-left: auto; }
+      .mascot-wrap { position: relative; z-index: 3; display: flex; align-items: center; gap: 7px; margin-left: auto; }
       .mascot-note {
         position: relative; max-width: 100px; padding: 7px 9px; color: #53617a; background: #fff;
         border: 1px solid rgba(31, 48, 84, .08); border-radius: 11px; box-shadow: var(--shadow-sm);
