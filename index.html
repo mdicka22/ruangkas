@@ -575,16 +575,117 @@
     }
 
     @media (max-width: 640px) {
-      html { scroll-padding-top: 14px; }
-      .app { width: min(100% - 20px, 1180px); padding-top: 14px; padding-bottom: 108px; }
-      .topbar { align-items: flex-start; }
+      :root {
+        --paper: #f4f7fb;
+        --teal: #2f63f6;
+        --teal-strong: #1748e8;
+        --sage: #2f63f6;
+        --sage-dark: #17233f;
+        --navy: #17233f;
+        --deep: #101a33;
+        --mint: #edf2ff;
+        --line: rgba(31, 48, 84, .09);
+        --shadow-sm: 0 5px 16px rgba(29, 48, 87, .06);
+        --shadow-md: 0 10px 28px rgba(29, 48, 87, .08);
+        --shadow-lg: 0 16px 38px rgba(29, 48, 87, .1);
+      }
+      html { scroll-padding-top: 14px; background: #f4f7fb; }
+      body { background: #f4f7fb; }
+      body::before {
+        width: 280px; height: 280px; left: auto; right: -145px; top: -140px;
+        background: #e7efff;
+        animation: none;
+      }
+      body::after { display: none; }
+      .app { width: 100%; padding: 0 14px 112px; }
+      .topbar {
+        min-height: 86px; margin: 0; padding: 19px 4px 13px; align-items: center;
+      }
+      .brand { gap: 11px; }
+      .mark {
+        width: 42px; height: 42px; border-radius: 14px;
+        background: #1748e8;
+        box-shadow: 0 10px 22px rgba(47, 99, 246, .28);
+      }
+      .brand h1 { font-size: 1.22rem; color: #101a33; background: none; -webkit-text-fill-color: currentColor; }
+      .brand p { margin-top: 4px; max-width: 260px; font-size: .7rem; line-height: 1.35; color: #74819a; }
       .topbar .ghost-btn span { display: none; }
-      .summary, .quick-panel, .panel { border-radius: 20px; }
+      .hero { gap: 12px; margin-bottom: 0; }
+      .summary, .quick-panel, .panel {
+        border-radius: 20px; outline: 0; border: 1px solid rgba(31, 48, 84, .07);
+        box-shadow: var(--shadow-md);
+      }
+      .summary {
+        padding: 18px; background: #fff; overflow: visible;
+      }
+      .summary::after {
+        width: 160px; height: 160px; right: -48px; top: -55px;
+        background: #eef3ff;
+        animation: none;
+      }
+      .eyebrow-row { align-items: center; margin-bottom: 22px; flex-wrap: nowrap; }
+      .eyebrow {
+        max-width: 48%; padding: 0; border: 0; background: transparent; border-radius: 0;
+        color: #6e7a92; font-size: .66rem; letter-spacing: .055em;
+      }
+      .eyebrow svg { display: none; }
+      .month-filter { margin-left: auto; padding: 4px; background: #f2f5fa; border-radius: 12px; }
+      .month-btn, .month-input {
+        height: 30px; min-height: 30px; padding: 0 9px; border: 0; border-radius: 9px;
+        font-size: .68rem; background: transparent; box-shadow: none;
+      }
+      .month-btn.active { background: #fff; color: #1748e8; box-shadow: 0 3px 9px rgba(29, 48, 87, .08); }
+      .month-input { width: 112px; color: #485775; }
+      .balance-label { margin: 0 0 7px; font-size: .75rem; color: #7a879d; }
+      .balance {
+        font-size: clamp(2rem, 10vw, 2.8rem); color: #111c36; background: none;
+        -webkit-text-fill-color: currentColor; letter-spacing: -.045em;
+      }
       body[data-mobile-view="dashboard"] .layout,
       body[data-mobile-view="add"] .hero, body[data-mobile-view="add"] #reportSection,
       body[data-mobile-view="report"] .hero, body[data-mobile-view="report"] #transactionForm { display: none; }
       body[data-mobile-view="add"] .layout, body[data-mobile-view="report"] .layout { display: grid; }
-      .summary-grid, .insights { grid-template-columns: 1fr; }
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin-top: 22px;
+      }
+      .metric { min-width: 0; padding: 12px 9px; border-radius: 14px; box-shadow: none; background: #f7f9fc; }
+      .metric span { display: block; font-size: .64rem; white-space: nowrap; }
+      .metric span svg { display: block; width: 27px; height: 27px; margin-bottom: 8px; padding: 6px; border-radius: 9px; }
+      .metric strong { margin-top: 5px; font-size: clamp(.72rem, 3vw, .9rem); line-height: 1.25; }
+      .metric span svg { background-image: none; }
+      .metric:nth-child(1) span svg { color: #1748e8; background: #eaf0ff; }
+      .metric:nth-child(2) span svg { color: #e15a58; background: #fff0ef; border-color: rgba(225, 90, 88, .12); }
+      .metric:nth-child(3) span svg { color: #d89418; background: #fff6df; }
+      .quick-panel {
+        min-height: 0; padding: 18px; gap: 14px; color: #17233f;
+        background: #fff;
+      }
+      .quick-panel::before { display: none; }
+      .quick-panel h2 { font-size: 1rem; }
+      .advice-list { gap: 7px; margin-top: 12px; }
+      .advice-item {
+        padding: 10px 11px; color: #4f5e78; background: #f7f9fc;
+        border-color: rgba(31, 48, 84, .06); border-radius: 12px; font-size: .75rem;
+      }
+      .advice-item[data-advicecat]:hover { background: #eef3ff; }
+      .progress-card { padding: 13px; background: #f4f7fd; border-color: rgba(47, 99, 246, .08); border-radius: 14px; }
+      .progress-head { margin-bottom: 8px; color: #56647d; font-size: .73rem; }
+      .track { height: 7px; background: #e2e8f2; }
+      .track span { background: #1748e8; }
+      .progress-sub { color: #7a879d; font-size: .68rem; }
+      .layout { gap: 12px; }
+      .form-panel { padding: 18px; }
+      .panel-title h2 { font-size: 1.05rem; }
+      .toggle { background: #f0f4fb; border-color: rgba(47, 99, 246, .06); }
+      .toggle button.active { color: #1748e8; box-shadow: 0 4px 12px rgba(29, 48, 87, .08); }
+      .field input:focus, .field select:focus { border-color: #2f63f6; box-shadow: 0 0 0 4px rgba(47, 99, 246, .11); }
+      .primary-btn { background: #1748e8; box-shadow: 0 10px 22px rgba(47, 99, 246, .27); }
+      .content { gap: 12px; }
+      .insights { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; padding: 10px; }
+      .insight { padding: 11px 9px; border-radius: 14px; }
+      .insight .icon { width: 29px; height: 29px; margin-bottom: 8px; border-radius: 9px; }
+      .insight span { min-height: 26px; font-size: .62rem; line-height: 1.35; }
+      .insight strong { font-size: .76rem; line-height: 1.25; }
       .toolbar { align-items: stretch; flex-direction: column; }
       .filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .chip { width: 100%; padding: 0 6px; font-size: .82rem; }
@@ -603,35 +704,45 @@
       .budget-head small { text-align: left; }
 
       .mobile-nav {
-        position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 20;
-        display: grid; grid-template-columns: 1fr 74px 1fr; align-items: center; gap: 8px;
-        min-height: 72px; padding: 9px; background: rgba(255, 255, 255, .9);
-        border: 1px solid rgba(13, 148, 136, .15); border-radius: 26px;
-        box-shadow: 0 18px 44px rgba(6, 42, 51, .22); backdrop-filter: blur(18px);
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+        display: grid; grid-template-columns: 1fr 78px 1fr; align-items: center; gap: 8px;
+        min-height: 78px; padding: 8px 20px max(9px, env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .94);
+        border: 0; border-top: 1px solid rgba(31, 48, 84, .08); border-radius: 22px 22px 0 0;
+        box-shadow: 0 -10px 28px rgba(29, 48, 87, .09); backdrop-filter: blur(20px);
         animation: fadeUp .6s var(--ease) .3s backwards;
       }
       .mobile-nav button {
-        min-width: 0; height: 54px; color: var(--muted); background: transparent; border-radius: 17px;
+        min-width: 0; height: 54px; color: #8a95a9; background: transparent; border-radius: 15px;
         display: grid; place-items: center; gap: 3px; font-size: .72rem; font-weight: 800;
         transition: all .25s var(--ease);
       }
       .mobile-nav button svg {
-        width: 28px; height: 28px; padding: 5px; color: var(--teal-strong);
-        background: linear-gradient(145deg, var(--mint), #fff);
-        border: 1px solid rgba(13, 148, 136, .12); border-radius: 12px;
+        width: 25px; height: 25px; padding: 3px; color: currentColor;
+        background: transparent; border: 0; border-radius: 0;
         transition: transform .25s var(--ease);
       }
-      .mobile-nav button.active { color: var(--sage-dark); background: var(--mint); }
+      .mobile-nav button.active { color: #1748e8; background: transparent; }
       .mobile-nav button.active svg { transform: scale(1.1); }
       .mobile-nav .add-nav {
-        height: 62px; margin-top: -28px; color: #fff;
-        background: linear-gradient(135deg, var(--deep), var(--teal));
-        border: 4px solid rgba(255, 255, 255, .9); border-radius: 23px;
-        box-shadow: 0 16px 30px rgba(13, 148, 136, .38);
+        width: 62px; height: 62px; justify-self: center; margin-top: -31px; color: #fff;
+        background: #1748e8;
+        border: 5px solid rgba(255, 255, 255, .96); border-radius: 50%;
+        box-shadow: 0 12px 25px rgba(47, 99, 246, .38);
       }
       .mobile-nav .add-nav:active { transform: scale(.94); }
       .mobile-nav .add-nav svg { width: 25px; height: 25px; padding: 0; color: #fff; background: transparent; border: 0; border-radius: 0; }
       .mobile-nav .add-nav.active { color: #fff; }
+
+      /* Mobile memakai warna datar seperti referensi aplikasi finansial. */
+      .mark, .primary-btn, .month-btn.active, .chip.active, .toggle button.active,
+      .metric span svg, .insight .icon, .icon-btn, .budget-fill, .bar-fill,
+      .mobile-nav .add-nav, .track span {
+        background-image: none;
+      }
+      .chip.active { background-color: #1748e8; }
+      .icon-btn, .insight .icon { background-color: #edf2ff; }
+      .amount { color: #1748e8; background: #eaf0ff; }
+      .item.expense .amount { color: #d94f4f; background: #fff0ef; }
     }
 
   </style>
@@ -648,10 +759,6 @@
           <p>Catatan arus uang suami istri yang tenang dan jelas.</p>
         </div>
       </div>
-      <button class="ghost-btn" id="resetBtn" type="button" title="Kembalikan data contoh">
-        <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>
-        <span>Data Contoh</span>
-      </button>
     </header>
 
     <section class="hero" id="dashboardSection" aria-label="Ringkasan keluarga">
@@ -913,15 +1020,6 @@
     const supabaseRestUrl = "https://qwwelgiywnmdyplyjjqj.supabase.co/rest/v1";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF3d2VsZ2l5d25tZHlwbHlqanFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzg3MzEsImV4cCI6MjA5NjYxNDczMX0.bVVDCIIrmyUFyJt53gmV1Y9OGaegiZKRRgXRtg3ee2Q";
 
-    const sampleTransactions = [
-      { id: crypto.randomUUID(), type: "income", title: "Gaji bulanan", amount: 9200000, person: "Suami", category: "Gaji", date: "2026-06-01", note: "Transfer kantor" },
-      { id: crypto.randomUUID(), type: "income", title: "Order kue rumahan", amount: 1750000, person: "Istri", category: "Usaha", date: "2026-06-03", note: "Pesanan tetangga" },
-      { id: crypto.randomUUID(), type: "expense", title: "Belanja dapur", amount: 840000, person: "Bersama", category: "Rumah Tangga", date: "2026-06-04", note: "Stok mingguan" },
-      { id: crypto.randomUUID(), type: "expense", title: "Sedekah Jumat", amount: 250000, person: "Suami", category: "Sedekah", date: "2026-06-05", note: "Masjid dekat rumah" },
-      { id: crypto.randomUUID(), type: "expense", title: "Cicilan motor", amount: 1250000, person: "Istri", category: "Cicilan", date: "2026-06-07", note: "Autodebit" },
-      { id: crypto.randomUUID(), type: "expense", title: "Bantu orang tua", amount: 700000, person: "Bersama", category: "Orang Tua", date: "2026-06-09", note: "Bulanan" }
-    ];
-
     let transactions = [];
     let isCloudConnected = false;
     let activeFilter = "all";
@@ -947,10 +1045,6 @@
       return transactions.filter(t => t.date && t.date.startsWith(activeMonth));
     }
 
-    function freshSampleTransactions() {
-      return sampleTransactions.map((item) => ({ ...item, id: crypto.randomUUID() }));
-    }
-
     function setStatus(message, connected = isCloudConnected) {
       isCloudConnected = connected;
       document.querySelector("#syncStatus").textContent = message;
@@ -971,8 +1065,8 @@
 
     function readFallbackTransactions() {
       const saved = localStorage.getItem(storageKey);
-      if (!saved) return freshSampleTransactions();
-      try { return JSON.parse(saved); } catch { return freshSampleTransactions(); }
+      if (!saved) return [];
+      try { return JSON.parse(saved); } catch { return []; }
     }
 
     function saveFallbackTransactions() { localStorage.setItem(storageKey, JSON.stringify(transactions)); }
@@ -999,14 +1093,6 @@
     async function deleteTransaction(id) {
       if (!isCloudConnected) { transactions = transactions.filter((item) => item.id !== id); saveFallbackTransactions(); return; }
       await supabaseRequest(`/transactions?id=eq.${encodeURIComponent(id)}`, { method: "DELETE", prefer: "return=minimal" });
-    }
-
-    async function resetSampleTransactions() {
-      const samples = freshSampleTransactions();
-      if (!isCloudConnected) { transactions = samples; saveFallbackTransactions(); return; }
-      await supabaseRequest("/transactions?id=not.is.null", { method: "DELETE", prefer: "return=minimal" });
-      const created = await supabaseRequest("/transactions", { method: "POST", body: JSON.stringify(samples), prefer: "return=representation" });
-      transactions = created.map((item) => ({ ...item, amount: Number(item.amount) }));
     }
 
     function formatMoney(value) {
@@ -1577,14 +1663,6 @@
       const activeSection = sections.length ? sections[sections.length - 1].id : "dashboardSection";
       setMobileNavActive(activeSection);
     }, { passive: true });
-
-    document.querySelector("#resetBtn").addEventListener("click", async () => {
-      const resetButton = document.querySelector("#resetBtn");
-      resetButton.disabled = true;
-      try { await resetSampleTransactions(); setStatus(isCloudConnected ? "Data contoh tersimpan di Supabase" : "Data contoh lokal", isCloudConnected); selectedDrillCategory = null; activeCategoryFilter = null; render(); }
-      catch (error) { console.error(error); setStatus("Gagal reset: cek policy Supabase", false); }
-      finally { resetButton.disabled = false; }
-    });
 
     document.querySelector("#exportBtn").addEventListener("click", () => {
       const header = ["tanggal", "jenis", "nama", "nominal", "dicatat_oleh", "kategori", "catatan"];
