@@ -10,7 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="RuangKas">
   <title>RuangKas - Keuangan Suami Istri</title>
   <link rel="icon" href="./ruangkas-icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./ruangkas-icon.svg">
+  <link rel="icon" href="./ruangkas-icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="./ruangkas-icon-180.png" sizes="180x180">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +44,8 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     .mobile-nav { display: none; }
+    .home-preview { display: none; }
+    .mascot-wrap { display: none; }
 
     body {
       margin: 0; min-height: 100vh; color: var(--ink);
@@ -609,6 +612,35 @@
       .topbar {
         min-height: 86px; margin: 0; padding: 19px 4px 13px; align-items: center;
       }
+      .mascot-wrap { display: flex; align-items: center; gap: 7px; margin-left: auto; }
+      .mascot-note {
+        position: relative; max-width: 100px; padding: 7px 9px; color: #53617a; background: #fff;
+        border: 1px solid rgba(31, 48, 84, .08); border-radius: 11px; box-shadow: var(--shadow-sm);
+        font-size: .59rem; font-weight: 700; line-height: 1.35;
+      }
+      .mascot-note::after {
+        content: ""; position: absolute; right: -5px; top: 50%; width: 8px; height: 8px;
+        background: #fff; border-top: 1px solid rgba(31, 48, 84, .08); border-right: 1px solid rgba(31, 48, 84, .08);
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .mascot {
+        position: relative; display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center;
+        padding: 0; color: #fff; background: #1748e8; border: 3px solid #fff; border-radius: 16px;
+        box-shadow: 0 9px 20px rgba(23, 72, 232, .24); transition: transform .22s var(--ease), background .22s;
+      }
+      .mascot:active { transform: scale(.9) rotate(-4deg); }
+      .mascot svg { width: 38px; height: 38px; overflow: visible; }
+      .mascot .mascot-eye, .mascot .mascot-mouth { stroke: #fff; stroke-width: 2.2; }
+      .mascot .mascot-cheek { fill: #ff9187; stroke: none; }
+      .mascot .mascot-plus { stroke: #1748e8; stroke-width: 2; }
+      .mascot.warn { background: #f2a51a; box-shadow: 0 9px 20px rgba(242, 165, 26, .25); animation: mascotNudge 2.8s ease-in-out infinite; }
+      .mascot.warn .mascot-plus { stroke: #f2a51a; }
+      .mascot.danger { background: #d94f4f; box-shadow: 0 9px 20px rgba(217, 79, 79, .25); animation: mascotNudge 1.7s ease-in-out infinite; }
+      .mascot.danger .mascot-plus { stroke: #d94f4f; }
+      .mascot.celebrate { background: #0d9b70; box-shadow: 0 9px 20px rgba(13, 155, 112, .25); animation: mascotCelebrate 1.8s ease-in-out infinite; }
+      .mascot.celebrate .mascot-plus { stroke: #0d9b70; }
+      @keyframes mascotNudge { 0%, 82%, 100% { transform: rotate(0); } 88% { transform: rotate(-6deg); } 94% { transform: rotate(6deg); } }
+      @keyframes mascotCelebrate { 0%, 100% { transform: translateY(0) rotate(0); } 45% { transform: translateY(-4px) rotate(-4deg); } 60% { transform: translateY(-4px) rotate(4deg); } }
       .brand { gap: 11px; }
       .mark {
         width: 42px; height: 42px; border-radius: 14px;
@@ -616,7 +648,7 @@
         box-shadow: 0 10px 22px rgba(47, 99, 246, .28);
       }
       .brand h1 { font-size: 1.22rem; color: #101a33; background: none; -webkit-text-fill-color: currentColor; }
-      .brand p { margin-top: 4px; max-width: 260px; font-size: .7rem; line-height: 1.35; color: #74819a; }
+      .brand p { display: none; }
       .topbar .ghost-btn span { display: none; }
       .hero { gap: 12px; margin-bottom: 0; }
       .summary, .quick-panel, .panel {
@@ -681,6 +713,44 @@
       .track { height: 7px; background: #e2e8f2; }
       .track span { background: #1748e8; }
       .progress-sub { color: #7a879d; font-size: .68rem; }
+      .home-preview { display: grid; gap: 12px; }
+      .home-report-card {
+        padding: 18px; background: #fff; border: 1px solid rgba(31, 48, 84, .07);
+        border-radius: 20px; box-shadow: var(--shadow-md);
+      }
+      .home-section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+      .home-section-head h2 { margin: 0; font-size: 1rem; }
+      .home-report-link { padding: 6px 0; color: #1748e8; background: transparent; font-size: .72rem; font-weight: 800; }
+      .home-chart-row { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 17px; align-items: center; }
+      .home-donut {
+        position: relative; width: 116px; aspect-ratio: 1; border-radius: 50%;
+        background: #e9edf5; box-shadow: inset 0 0 0 1px rgba(31, 48, 84, .04);
+      }
+      .home-donut::after {
+        content: ""; position: absolute; inset: 24px; border-radius: 50%; background: #fff;
+        box-shadow: 0 2px 8px rgba(29, 48, 87, .08);
+      }
+      .home-donut-label { position: absolute; inset: 0; z-index: 1; display: grid; place-content: center; text-align: center; pointer-events: none; }
+      .home-donut-label strong { font-size: .9rem; color: #17233f; }
+      .home-donut-label span { margin-top: 2px; color: #8994a8; font-size: .55rem; }
+      .home-top-categories { display: grid; gap: 10px; min-width: 0; }
+      .home-category { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; gap: 7px; align-items: center; min-width: 0; }
+      .home-category-dot { width: 8px; height: 8px; border-radius: 3px; }
+      .home-category-name { overflow: hidden; color: #59677f; font-size: .67rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+      .home-category strong { color: #17233f; font-size: .66rem; }
+      .home-latest-list { display: grid; gap: 2px; }
+      .home-latest-item { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(31, 48, 84, .06); }
+      .home-latest-item:last-child { border-bottom: 0; padding-bottom: 0; }
+      .home-latest-icon { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 12px; background: #f3f6fb; }
+      .home-latest-icon .illustration-icon { width: 30px; height: 30px; }
+      .home-latest-copy { min-width: 0; }
+      .home-latest-copy strong, .home-latest-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .home-latest-copy strong { color: #17233f; font-size: .75rem; }
+      .home-latest-copy span { margin-top: 3px; color: #8a95a9; font-size: .62rem; }
+      .home-latest-amount { font-size: .68rem; font-weight: 800; white-space: nowrap; }
+      .home-latest-amount.income { color: #1748e8; }
+      .home-latest-amount.expense { color: #d94f4f; }
+      .home-empty { margin: 0; padding: 12px 0; color: #8a95a9; font-size: .72rem; text-align: center; }
       .layout { gap: 12px; }
       .form-panel { padding: 18px; }
       .panel-title h2 { font-size: 1.05rem; }
@@ -729,7 +799,7 @@
         background: transparent; border: 0; border-radius: 0;
         transition: transform .25s var(--ease);
       }
-      .mobile-nav button.active { color: #1748e8; background: transparent; }
+      .mobile-nav button.active { color: #fff; background: #1748e8; box-shadow: 0 7px 16px rgba(23, 72, 232, .2); }
       .mobile-nav button.active svg { transform: scale(1.1); }
       .mobile-nav .add-nav {
         width: 62px; height: 62px; justify-self: center; margin-top: -31px; color: #fff;
@@ -739,7 +809,7 @@
       }
       .mobile-nav .add-nav:active { transform: scale(.94); }
       .mobile-nav .add-nav svg { width: 25px; height: 25px; padding: 0; color: #fff; background: transparent; border: 0; border-radius: 0; }
-      .mobile-nav .add-nav.active { color: #fff; }
+      .mobile-nav .add-nav.active { color: #fff; background: #1748e8; }
 
       /* Mobile memakai warna datar seperti referensi aplikasi finansial. */
       .mark, .primary-btn, .month-btn.active, .chip.active, .toggle button.active,
@@ -766,6 +836,21 @@
           <h1>RuangKas</h1>
           <p>Catatan arus uang suami istri yang tenang dan jelas.</p>
         </div>
+      </div>
+      <div class="mascot-wrap">
+        <span class="mascot-note" id="mascotText">Aku siap bantu.</span>
+        <button class="mascot" id="mascotButton" type="button" aria-label="Buka saran keuangan">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M8 14h29a5 5 0 0 1 5 5v19a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5V16a5 5 0 0 1 2-2z" fill="currentColor" stroke="#fff"></path>
+            <path d="M8 14v-3a5 5 0 0 1 5-5h22" stroke="#fff"></path>
+            <rect x="31" y="18" width="14" height="12" rx="5" fill="#fff" stroke="none"></rect>
+            <path class="mascot-plus" d="M35 24h6M38 21v6"></path>
+            <path class="mascot-eye" d="M15 26h.1M25 26h.1"></path>
+            <path class="mascot-mouth" id="mascotMouth" d="M15 33c3 3 7 3 10 0"></path>
+            <circle class="mascot-cheek" cx="12" cy="31" r="1.8"></circle>
+            <circle class="mascot-cheek" cx="28" cy="31" r="1.8"></circle>
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -813,6 +898,28 @@
           <div class="progress-sub" id="targetSummary"></div>
         </div>
       </aside>
+
+      <div class="home-preview" aria-label="Ringkasan laporan">
+        <section class="home-report-card">
+          <div class="home-section-head">
+            <h2>Ringkasan pengeluaran</h2>
+            <button class="home-report-link" type="button" data-home-report>Lihat laporan</button>
+          </div>
+          <div class="home-chart-row">
+            <div class="home-donut" id="homeDonut">
+              <div class="home-donut-label"><strong id="homeExpenseTotal">Rp0</strong><span>pengeluaran</span></div>
+            </div>
+            <div class="home-top-categories" id="homeTopCategories"></div>
+          </div>
+        </section>
+        <section class="home-report-card">
+          <div class="home-section-head">
+            <h2>Transaksi terbaru</h2>
+            <button class="home-report-link" type="button" data-home-report>Lihat semua</button>
+          </div>
+          <div class="home-latest-list" id="homeLatestList"></div>
+        </section>
+      </div>
     </section>
 
     <section class="layout">
@@ -1104,6 +1211,12 @@
 
     function formatMoney(value) {
       return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
+    }
+
+    function compactMoney(value) {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency", currency: "IDR", notation: "compact", maximumFractionDigits: 1
+      }).format(Number(value) || 0);
     }
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1540,10 +1653,42 @@
         : "Isi target tiap kategori untuk mulai memantau";
     }
 
+    function updateMascot(items, saving) {
+      const mascot = document.querySelector("#mascotButton");
+      const note = document.querySelector("#mascotText");
+      const mouth = document.querySelector("#mascotMouth");
+      mascot.className = "mascot";
+      if (items.some((item) => item.cls === "danger")) {
+        mascot.classList.add("danger");
+        note.textContent = "Ada yang perlu dibenahi.";
+        mouth.setAttribute("d", "M15 36c3-3 7-3 10 0");
+      } else if (items.some((item) => item.cls === "warn")) {
+        mascot.classList.add("warn");
+        note.textContent = "Yuk, cek batas aman.";
+        mouth.setAttribute("d", "M16 34h8");
+      } else if (saving >= 20) {
+        mascot.classList.add("celebrate");
+        note.textContent = "Hebat, tabungan aman!";
+        mouth.setAttribute("d", "M15 32c3 5 7 5 10 0");
+      } else {
+        note.textContent = "Aku siap bantu.";
+        mouth.setAttribute("d", "M15 33c3 3 7 3 10 0");
+      }
+    }
+
     function renderAdvice() {
       const data = totals();
       const groups = expenseByCategory();
       const items = [];
+      const saving = data.income > 0 ? Math.round((data.balance / data.income) * 100) : 0;
+      const totalTarget = totalBudget();
+      const referenceDate = new Date();
+      const selectedParts = activeMonth ? activeMonth.split("-").map(Number) : null;
+      const selectedYear = selectedParts ? selectedParts[0] : referenceDate.getFullYear();
+      const selectedMonth = selectedParts ? selectedParts[1] - 1 : referenceDate.getMonth();
+      const lastDay = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+      const daysLeft = selectedYear === referenceDate.getFullYear() && selectedMonth === referenceDate.getMonth()
+        ? Math.max(1, lastDay - referenceDate.getDate() + 1) : lastDay;
 
       Object.keys(budgets).forEach((cat) => {
         const budget = Number(budgets[cat] || 0);
@@ -1551,30 +1696,39 @@
         const spent = groups[cat] || 0;
         const ratio = spent / budget;
         if (ratio > 1) {
-          items.push({ lv: 0, cls: "danger", cat, text: `${cat} over ${formatMoney(spent - budget)} dari target. Klik untuk lihat detailnya.` });
+          items.push({ lv: 0, cls: "danger", cat, text: `Kurangi ${cat} minimal ${formatMoney(spent - budget)} agar kembali sesuai target.` });
         } else if (ratio >= 0.8) {
-          items.push({ lv: 1, cls: "warn", cat, text: `${cat} sudah ${Math.round(ratio * 100)}% dari target, sisa ${formatMoney(budget - spent)}.` });
+          const dailyLimit = Math.max(0, budget - spent) / daysLeft;
+          items.push({ lv: 1, cls: "warn", cat, text: `Batas aman ${cat} sampai akhir bulan sekitar ${formatMoney(dailyLimit)} per hari.` });
         }
       });
 
       if (data.income > 0 && data.expense > data.income) {
-        items.push({ lv: 0, cls: "danger", text: `Pengeluaran melebihi pemasukan ${formatMoney(data.expense - data.income)}.` });
+        items.push({ lv: 0, cls: "danger", text: `Tahan pengeluaran berikutnya. Arus kas perlu dikurangi ${formatMoney(data.expense - data.income)} agar kembali seimbang.` });
+      } else if (data.income > 0 && saving < 20) {
+        const savingGap = Math.max(0, data.income * .2 - data.balance);
+        items.push({ lv: 1, cls: "warn", text: `Sisihkan lagi ${formatMoney(savingGap)} untuk mencapai tabungan 20% bulan ini.` });
       }
 
-      const saving = data.income > 0 ? Math.round((data.balance / data.income) * 100) : 0;
-      if (data.income > 0 && data.expense <= data.income && saving < 20) {
-        items.push({ lv: 1, cls: "warn", text: `Tabungan ${saving}% dari pemasukan, idealnya minimal 20%.` });
+      const rankedCategories = Object.entries(groups).sort((a, b) => b[1] - a[1]);
+      if (data.expense > 0 && rankedCategories.length) {
+        const [topCat, topValue] = rankedCategories[0];
+        const share = Math.round(topValue / data.expense * 100);
+        if (share >= 35) items.push({ lv: 1, cls: "warn", cat: topCat, text: `${topCat} mengambil ${share}% pengeluaran. Periksa transaksi terbesarnya sebelum belanja lagi.` });
       }
 
       if (!items.length) {
-        if (!Object.keys(budgets).length) {
-          items.push({ lv: 2, cls: "ok", text: "Isi target per kategori di bawah, saran otomatis akan muncul di sini." });
+        if (!data.income && !data.expense) {
+          items.push({ lv: 2, cls: "ok", text: "Catat pemasukan dan pengeluaran pertama agar Kasi bisa memberi saran yang sesuai." });
+        } else if (!totalTarget) {
+          items.push({ lv: 2, cls: "ok", text: `Arus kas masih aman. Buat target kategori agar batas belanja bisa dipantau otomatis.` });
         } else {
-          items.push({ lv: 2, cls: "ok", text: `Semua kategori masih dalam batas aman. Tabungan ${saving}% dari pemasukan.` });
+          items.push({ lv: 2, cls: "ok", text: `Semua target aman. Pertahankan pengeluaran harian dan tabungan ${saving}% bulan ini.` });
         }
       }
 
       items.sort((a, b) => a.lv - b.lv);
+      updateMascot(items, saving);
       document.querySelector("#adviceList").innerHTML = items.slice(0, 4).map((item) =>
         `<div class="advice-item ${item.cls}"${item.cat ? ` data-advicecat="${item.cat}"` : ""}>
           <span class="advice-dot"></span><span>${item.text}</span>
@@ -1584,9 +1738,60 @@
       document.querySelectorAll("[data-advicecat]").forEach((el) => {
         el.addEventListener("click", () => {
           selectDrillCategory(el.dataset.advicecat);
-          document.querySelector(".donut-card").scrollIntoView({ behavior: "smooth", block: "center" });
+          if (window.innerWidth <= 640) {
+            scrollToMobileSection("reportSection");
+            window.setTimeout(() => document.querySelector(".donut-card").scrollIntoView({ behavior: "smooth", block: "center" }), 80);
+          } else {
+            document.querySelector(".donut-card").scrollIntoView({ behavior: "smooth", block: "center" });
+          }
         });
       });
+    }
+
+    function renderHomePreview() {
+      const monthItems = filteredByMonth();
+      const expenses = monthItems.filter((item) => item.type === "expense");
+      const expenseTotal = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+      const groups = expenses.reduce((result, item) => {
+        result[item.category] = (result[item.category] || 0) + Number(item.amount);
+        return result;
+      }, {});
+      const categories = Object.entries(groups).sort((a, b) => b[1] - a[1]);
+      const donut = document.querySelector("#homeDonut");
+      const topCategories = document.querySelector("#homeTopCategories");
+      const latestList = document.querySelector("#homeLatestList");
+
+      document.querySelector("#homeExpenseTotal").textContent = compactMoney(expenseTotal);
+
+      if (categories.length && expenseTotal > 0) {
+        let cursor = 0;
+        const segments = categories.map(([category, amount]) => {
+          const start = cursor;
+          cursor += amount / expenseTotal * 100;
+          return `${categoryColors[category] || "#78909c"} ${start}% ${cursor}%`;
+        });
+        donut.style.background = `conic-gradient(${segments.join(",")})`;
+        topCategories.innerHTML = categories.slice(0, 3).map(([category, amount]) => `
+          <div class="home-category">
+            <span class="home-category-dot" style="background:${categoryColors[category] || "#78909c"}"></span>
+            <span class="home-category-name">${category}</span>
+            <strong>${Math.round(amount / expenseTotal * 100)}%</strong>
+          </div>
+        `).join("");
+      } else {
+        donut.style.background = "#e9edf5";
+        topCategories.innerHTML = '<p class="home-empty">Belum ada pengeluaran bulan ini.</p>';
+      }
+
+      const latest = [...monthItems].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+      latestList.innerHTML = latest.length ? latest.map((item) => {
+        const sign = item.type === "income" ? "+" : "-";
+        return `<div class="home-latest-item">
+          <div class="home-latest-icon">${categoryIcon(item.type, item.category)}</div>
+          <div class="home-latest-copy"><strong>${item.title}</strong><span>${item.category} · ${item.person}</span></div>
+          <span class="home-latest-amount ${item.type}">${sign}${compactMoney(item.amount)}</span>
+        </div>`;
+      }).join("") : '<p class="home-empty">Belum ada transaksi bulan ini.</p>';
     }
 
     function render() {
@@ -1595,6 +1800,7 @@
       renderBudgets();
       renderAdvice();
       renderTransactions();
+      renderHomePreview();
     }
 
     function setMobileNavActive(targetId) {
@@ -1619,6 +1825,10 @@
 
     document.querySelectorAll(".toggle button").forEach((button) => button.addEventListener("click", () => setType(button.dataset.type)));
     document.querySelectorAll(".mobile-nav button").forEach((button) => button.addEventListener("click", () => scrollToMobileSection(button.dataset.mobileTarget)));
+    document.querySelectorAll("[data-home-report]").forEach((button) => button.addEventListener("click", () => scrollToMobileSection("reportSection")));
+    document.querySelector("#mascotButton").addEventListener("click", () => {
+      document.querySelector(".quick-panel").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
     document.querySelectorAll(".chip").forEach((button) => {
       button.addEventListener("click", () => {
         activeFilter = button.dataset.filter;
