@@ -30,6 +30,7 @@ const RUANGKAS_EN = {
   "Tampilkan": "Show", "Sembunyikan": "Hide", "Sembunyikan saldo": "Hide amounts",
   "Tampilkan saldo": "Show amounts", "Buka saran keuangan": "Open money tips",
   "Jenis transaksi": "Transaction type", "Filter transaksi": "Transaction filters",
+  "Insight singkat": "Quick insights",
   "Ringkasan keluarga": "Family overview", "Ringkasan laporan": "Report preview",
   "Navigasi utama mobile": "Mobile navigation", "Hapus transaksi": "Delete transaction",
   "Tabungan": "Savings", "tabungan": "savings", "Belum ada data": "No data yet",
