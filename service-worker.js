@@ -1,7 +1,8 @@
-const CACHE_NAME = "ruangkas-app-v4";
+const CACHE_NAME = "ruangkas-app-v5";
 const APP_FILES = [
   "./",
   "./index.html",
+  "./i18n.js",
   "./manifest.webmanifest",
   "./ruangkas-icon.svg",
   "./ruangkas-icon-180.png",

@@ -46,6 +46,21 @@
     .mobile-nav { display: none; }
     .home-preview { display: none; }
     .mascot-wrap { display: none; }
+    .account-shortcut { display: none; }
+    .profile-page { display: none; }
+    body.privacy-on :is(#balance, #incomeTotal, #expenseTotal, #charityTotal, #targetPercent,
+      #targetSummary, #homeExpenseTotal, #homeTopCategories strong, .home-latest-amount,
+      #husbandTotal, #wifeTotal, #reportExpenseTotal, #savingRate, #donutPct,
+      #donutLegend strong, #drillSummary strong, .drill-item-amount, #budgetSummary,
+      .budget-meta, .budget-badge, .budget-input, .bar-row strong, .amount,
+      .advice-item span:last-child, #itemCount) { visibility: hidden !important; }
+    body.privacy-on :is(.home-donut, #donutSvg, .bar-fill, .budget-fill, .track span) { opacity: 0 !important; }
+    body.privacy-on .balance-visibility .eye-slash { display: block; }
+    body.privacy-on .balance-visibility { background: rgba(255,255,255,.14); }
+    .private-placeholder { display: none; font-weight: 700; letter-spacing: .09em; }
+    body.privacy-on .private-placeholder { display: inline; }
+    body.privacy-on .metric { position: relative; }
+    body.privacy-on .metric::after { content: "••••"; position: absolute; left: 10px; bottom: 12px; color: var(--deep); font-size: .82rem; font-weight: 800; letter-spacing: .08em; }
 
     body {
       margin: 0; min-height: 100vh; color: var(--ink);
@@ -610,6 +625,8 @@
         min-height: 86px; margin: 0; padding: 19px 4px 13px; align-items: center;
       }
       .mascot-wrap { position: relative; z-index: 3; display: flex; align-items: center; gap: 7px; margin-left: auto; }
+      .account-shortcut { display: grid; width: 40px; height: 40px; flex: 0 0 auto; place-items: center; margin-left: 8px; color: #3151f5; background: #edf0ff; border: 1px solid #dfe5ff; border-radius: 50%; }
+      .account-shortcut svg { width: 23px; height: 23px; }
       .mascot-note {
         position: relative; max-width: 100px; padding: 7px 9px; color: #53617a; background: #fff;
         border: 1px solid rgba(31, 48, 84, .08); border-radius: 11px; box-shadow: var(--shadow-sm);
@@ -682,8 +699,10 @@
       .balance.is-hidden::after { font-size: clamp(2rem, 10vw, 2.8rem); color: #fff; }
       body[data-mobile-view="dashboard"] .layout,
       body[data-mobile-view="add"] .hero, body[data-mobile-view="add"] #reportSection,
-      body[data-mobile-view="report"] .hero, body[data-mobile-view="report"] #transactionForm { display: none; }
+      body[data-mobile-view="report"] .hero, body[data-mobile-view="report"] #transactionForm,
+      body[data-mobile-view="profile"] .hero, body[data-mobile-view="profile"] .layout { display: none; }
       body[data-mobile-view="add"] .layout, body[data-mobile-view="report"] .layout { display: grid; }
+      body[data-mobile-view="profile"] .profile-page { display: grid; }
       .summary-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 30px;
       }
@@ -786,7 +805,7 @@
 
       .mobile-nav {
         position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-        display: grid; grid-template-columns: 1fr 78px 1fr; align-items: center; gap: 8px;
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 70px; align-items: center; gap: 3px;
         min-height: 78px; padding: 8px 20px max(9px, env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .94);
         border: 0; border-top: 1px solid rgba(31, 48, 84, .08); border-radius: 22px 22px 0 0;
         box-shadow: 0 -10px 28px rgba(29, 48, 87, .09); backdrop-filter: blur(20px);
@@ -814,6 +833,22 @@
       .mobile-nav .add-nav:active { transform: scale(.94); }
       .mobile-nav .add-nav svg { width: 25px; height: 25px; padding: 0; color: #fff; background: transparent; border: 0; border-radius: 0; }
       .mobile-nav .add-nav.active { color: #fff; background: #3151f5; }
+      .profile-page { gap: 18px; padding: 4px 0 24px; }
+      .profile-card { padding: 24px; background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-md); }
+      .profile-head { display: flex; gap: 15px; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+      .profile-avatar { display: grid; width: 58px; height: 58px; flex: 0 0 auto; place-items: center; border-radius: 19px; background: #3151f5; color: #fff; }
+      .profile-avatar svg { width: 33px; height: 33px; }
+      .profile-head h2 { margin: 0 0 4px; font-size: 1.15rem; }
+      .profile-head p, .profile-hint { margin: 0; color: #7c879a; font-size: .75rem; line-height: 1.55; }
+      .profile-section-label { margin: 0 4px 10px; color: #7c879a; font-size: .7rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+      .profile-row { display: flex; min-height: 64px; align-items: center; gap: 13px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+      .profile-row:last-child { border-bottom: 0; }
+      .profile-row-icon { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; color: #3151f5; background: #edf0ff; border-radius: 12px; }
+      .profile-row-copy { min-width: 0; flex: 1; }
+      .profile-row-copy strong { display: block; font-size: .84rem; }
+      .profile-row-copy small { display: block; margin-top: 3px; color: #8792a6; font-size: .68rem; }
+      .profile-select { max-width: 118px; height: 38px; padding: 0 7px; color: #3151f5; background: #f4f6ff; border: 1px solid #dfe5ff; border-radius: 10px; font: inherit; font-size: .73rem; font-weight: 700; }
+      .profile-status { color: #3151f5; font-size: .7rem; font-weight: 700; text-align: right; }
 
       /* Mobile memakai warna datar seperti referensi aplikasi finansial. */
       .mark, .primary-btn, .month-btn.active, .chip.active, .toggle button.active,
@@ -856,6 +891,7 @@
           </svg>
         </button>
       </div>
+      <button class="account-shortcut" id="accountShortcut" type="button" aria-label="Profil" title="Profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg></button>
     </header>
 
     <section class="hero" id="dashboardSection" aria-label="Ringkasan keluarga">
@@ -881,6 +917,7 @@
           </button>
         </div>
         <h2 class="balance" id="balance">Rp0</h2>
+        <span class="private-placeholder" aria-hidden="true">••••••</span>
         <div class="summary-grid">
           <div class="metric">
             <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><path d="M4 8V6a2 2 0 0 1 2-2h10"></path><path d="M15 14h5"></path><path d="m17.5 11.5 2.5 2.5-2.5 2.5"></path></svg>Pemasukan</span>
@@ -964,9 +1001,9 @@
           <div class="field">
             <label for="person">Dicatat oleh</label>
             <select id="person" name="person">
-              <option>Suami</option>
-              <option>Istri</option>
-              <option>Bersama</option>
+              <option value="Suami">Suami</option>
+              <option value="Istri">Istri</option>
+              <option value="Bersama">Bersama</option>
             </select>
           </div>
         </div>
@@ -1091,6 +1128,20 @@
         </section>
       </div>
     </section>
+    <section class="profile-page" id="profileSection" aria-label="Profil">
+      <div class="profile-card">
+        <div class="profile-head">
+          <div class="profile-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path><path d="M9 12h6M12 9v6"></path></svg></div>
+          <div><h2>Akun RuangKas</h2><p>Ruang keuangan keluarga</p></div>
+        </div>
+        <div class="profile-row"><div class="profile-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5M5 10v10h14V10M9 20v-6h6v6"></path></svg></div><div class="profile-row-copy"><strong>Ruang keluarga</strong><small>Catatan bersama suami dan istri</small></div></div>
+        <div class="profile-row"><div class="profile-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v13H4zM8 10h8M8 14h5"></path></svg></div><div class="profile-row-copy"><strong>Penyimpanan data</strong><small>Status koneksi saat ini</small></div><span class="profile-status" id="profileStorageStatus">Memeriksa...</span></div>
+      </div>
+      <div><p class="profile-section-label">Pengaturan</p><div class="profile-card">
+        <div class="profile-row"><div class="profile-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18"></path></svg></div><div class="profile-row-copy"><strong>Bahasa</strong><small>Pilih bahasa aplikasi</small></div><select class="profile-select" id="languageSelect" aria-label="Bahasa"><option value="id">Indonesia</option><option value="en">English</option></select></div>
+        <div class="profile-row"><div class="profile-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></div><div class="profile-row-copy"><strong>Privasi nominal</strong><small>Sembunyikan angka di seluruh aplikasi</small></div><button class="profile-select" id="profilePrivacyToggle" type="button">Sembunyikan</button></div>
+      </div></div>
+    </section>
   </main>
 
   <nav class="mobile-nav" aria-label="Navigasi utama mobile">
@@ -1098,15 +1149,20 @@
       <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>
       Dashboard
     </button>
-    <button class="add-nav" type="button" data-mobile-target="transactionForm" aria-label="Tambah transaksi">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
-    </button>
     <button type="button" data-mobile-target="reportSection" aria-label="Laporan" title="Laporan">
       <svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M8 17v-6"></path><path d="M13 17V7"></path><path d="M18 17v-3"></path><path d="M3 19h18"></path></svg>
       Laporan
     </button>
+    <button type="button" data-mobile-target="profileSection" aria-label="Profil" title="Profil">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>
+      Profil
+    </button>
+    <button class="add-nav" type="button" data-mobile-target="transactionForm" aria-label="Tambah transaksi">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+    </button>
   </nav>
 
+  <script src="./i18n.js"></script>
   <script>
     const incomeCategories = ["Gaji", "Usaha", "Bonus", "Investasi", "Hadiah", "Lainnya"];
     const expenseCategories = [
@@ -1153,6 +1209,26 @@
     let activeCategoryFilter = null;
     let selectedDrillCategory = null;
     let activeMonth = null;
+    const languageKey = "ruangkas-language";
+    let currentLanguage = localStorage.getItem(languageKey) === "en" ? "en" : "id";
+    let privacyEnabled = false;
+
+    function localizeUI() {
+      document.documentElement.lang = currentLanguage;
+      document.querySelector("#languageSelect").value = currentLanguage;
+      localizeRuangKas(document.body, currentLanguage);
+    }
+
+    function setPrivacy(hidden) {
+      privacyEnabled = hidden;
+      document.body.classList.toggle("privacy-on", hidden);
+      const eye = document.querySelector("#balanceVisibility");
+      eye.classList.toggle("is-hidden", hidden);
+      eye.setAttribute("aria-pressed", String(hidden));
+      eye.setAttribute("aria-label", hidden ? "Tampilkan saldo" : "Sembunyikan saldo");
+      document.querySelector("#profilePrivacyToggle").textContent = hidden ? "Tampilkan" : "Sembunyikan";
+      localizeUI();
+    }
 
     const form = document.querySelector("#transactionForm");
     const typeInput = document.querySelector("#type");
@@ -1175,6 +1251,8 @@
     function setStatus(message, connected = isCloudConnected) {
       isCloudConnected = connected;
       document.querySelector("#syncStatus").textContent = message;
+      document.querySelector("#profileStorageStatus").textContent = connected ? "Supabase" : "Lokal";
+      localizeUI();
     }
 
     function supabaseHeaders(prefer) {
@@ -1232,6 +1310,12 @@
       }).format(Number(value) || 0);
     }
 
+    function displayCategory(category) { return translateRuangKasText(category, currentLanguage); }
+    function displayPerson(person) { return translateRuangKasText(person, currentLanguage); }
+    function displayDate(date, options) {
+      return new Intl.DateTimeFormat(currentLanguage === "en" ? "en-GB" : "id-ID", options).format(new Date(date));
+    }
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function countUp(el, value) {
@@ -1255,7 +1339,10 @@
 
     function setCategories(type) {
       const categories = type === "income" ? incomeCategories : expenseCategories;
-      categoryInput.innerHTML = categories.map((category) => `<option>${category}</option>`).join("");
+      const selected = categoryInput.value;
+      categoryInput.innerHTML = categories.map((category) => `<option value="${category}">${category}</option>`).join("");
+      if (categories.includes(selected)) categoryInput.value = selected;
+      localizeUI();
     }
 
     function setType(type) {
@@ -1325,7 +1412,7 @@
       if (!entries.length) {
         svg.innerHTML = `<circle cx="${cx}" cy="${cy}" r="${outerR}" fill="rgba(255,255,255,.1)" /><circle cx="${cx}" cy="${cy}" r="${innerR}" fill="#093c44" />`;
         document.querySelector("#donutPct").textContent = "0%";
-        document.querySelector("#donutLabel").textContent = "Belum ada data";
+        document.querySelector("#donutLabel").textContent = translateRuangKasText("Belum ada data", currentLanguage);
         document.querySelector("#donutLegend").innerHTML = "";
         return;
       }
@@ -1358,7 +1445,7 @@
 
       if (!selectedDrillCategory) {
         document.querySelector("#donutPct").textContent = `${savingRate}%`;
-        document.querySelector("#donutLabel").textContent = "tabungan";
+        document.querySelector("#donutLabel").textContent = translateRuangKasText("tabungan", currentLanguage);
       }
 
       const legend = document.querySelector("#donutLegend");
@@ -1373,17 +1460,17 @@
       svg.querySelectorAll("path[data-cat]").forEach(path => {
         path.addEventListener("mouseenter", () => {
           document.querySelector("#donutPct").textContent = path.dataset.pct + "%";
-          document.querySelector("#donutLabel").textContent = path.dataset.cat;
+          document.querySelector("#donutLabel").textContent = displayCategory(path.dataset.cat);
         });
         path.addEventListener("mouseleave", () => {
           if (!selectedDrillCategory) {
             document.querySelector("#donutPct").textContent = `${savingRate}%`;
-            document.querySelector("#donutLabel").textContent = "tabungan";
+            document.querySelector("#donutLabel").textContent = translateRuangKasText("tabungan", currentLanguage);
           } else {
             const selGroups = expenseByCategory();
             const selPct = totalExpense > 0 ? Math.round((selGroups[selectedDrillCategory] || 0) / totalExpense * 100) : 0;
             document.querySelector("#donutPct").textContent = selPct + "%";
-            document.querySelector("#donutLabel").textContent = selectedDrillCategory;
+            document.querySelector("#donutLabel").textContent = displayCategory(selectedDrillCategory);
           }
         });
         path.addEventListener("click", () => selectDrillCategory(path.dataset.cat));
@@ -1402,7 +1489,7 @@
       const pct = totalExpense > 0 ? Math.round(catTotal / totalExpense * 100) : 0;
 
       document.querySelector("#donutPct").textContent = pct + "%";
-      document.querySelector("#donutLabel").textContent = cat;
+      document.querySelector("#donutLabel").textContent = displayCategory(cat);
 
       document.querySelectorAll(".legend-item").forEach(item => {
         item.classList.toggle("active", item.dataset.cat === cat);
@@ -1414,7 +1501,7 @@
 
       const drillBack = document.querySelector("#drillBack");
       drillBack.style.display = "inline-flex";
-      document.querySelector("#drillTitle").textContent = cat;
+      document.querySelector("#drillTitle").textContent = displayCategory(cat);
 
       const catTransactions = filteredByMonth()
         .filter(t => t.type === "expense" && t.category === cat)
@@ -1452,19 +1539,21 @@
       const listEl = document.querySelector("#drillList");
       if (!catTransactions.length) {
         listEl.innerHTML = `<p class="empty">Belum ada transaksi di kategori ini.</p>`;
+        localizeUI();
         return;
       }
 
       listEl.innerHTML = catTransactions.map((t, index) => {
-        const dateStr = new Intl.DateTimeFormat("id-ID", { weekday: "short", day: "2-digit", month: "short" }).format(new Date(t.date));
+        const dateStr = displayDate(t.date, { weekday: "short", day: "2-digit", month: "short" });
         return `<div class="drill-item" style="animation-delay:${Math.min(index * 50, 400)}ms">
           <div class="drill-item-left">
             <strong>${t.title}</strong>
-            <span>${dateStr} - ${t.person}${t.note ? ' - ' + t.note : ''}</span>
+            <span>${dateStr} - ${displayPerson(t.person)}${t.note ? ' - ' + t.note : ''}</span>
           </div>
           <div class="drill-item-amount">${formatMoney(t.amount)}</div>
         </div>`;
       }).join("");
+      localizeUI();
     }
 
     function resetDrill() {
@@ -1478,7 +1567,8 @@
       const data = totals();
       const savingRate = data.income > 0 ? Math.max(0, Math.round((data.balance / data.income) * 100)) : 0;
       document.querySelector("#donutPct").textContent = `${savingRate}%`;
-      document.querySelector("#donutLabel").textContent = "tabungan";
+      document.querySelector("#donutLabel").textContent = translateRuangKasText("tabungan", currentLanguage);
+      localizeUI();
     }
 
     function renderCategoryFilters() {
@@ -1504,6 +1594,7 @@
           renderCategoryFilters();
           renderCategoryBars();
           renderTransactions();
+          localizeUI();
         });
       });
     }
@@ -1587,6 +1678,7 @@
 
       if (!filtered.length) {
         list.innerHTML = `<p class="empty">Belum ada transaksi untuk filter ini.</p>`;
+        localizeUI();
         return;
       }
 
@@ -1598,7 +1690,7 @@
             <div class="item-icon" aria-hidden="true">${icon}</div>
             <div class="item-main">
               <strong>${item.title}</strong>
-              <span>${item.category} - ${item.person} - ${new Intl.DateTimeFormat("id-ID", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(item.date))}${item.note ? ` - ${item.note}` : ""}</span>
+          <span>${displayCategory(item.category)} - ${displayPerson(item.person)} - ${displayDate(item.date, { day: "2-digit", month: "short", year: "numeric" })}${item.note ? ` - ${item.note}` : ""}</span>
             </div>
             <div class="amount">${sign}${formatMoney(item.amount)}</div>
             <button class="icon-btn delete-btn" type="button" data-delete="${item.id}" title="Hapus transaksi">
@@ -1608,6 +1700,7 @@
           </article>
         `;
       }).join("");
+      localizeUI();
     }
 
     function renderChart() {
@@ -1801,7 +1894,7 @@
         const sign = item.type === "income" ? "+" : "-";
         return `<div class="home-latest-item">
           <div class="home-latest-icon">${categoryIcon(item.type, item.category)}</div>
-          <div class="home-latest-copy"><strong>${item.title}</strong><span>${item.category} · ${item.person}</span></div>
+          <div class="home-latest-copy"><strong>${item.title}</strong><span>${displayCategory(item.category)} · ${displayPerson(item.person)}</span></div>
           <span class="home-latest-amount ${item.type}">${sign}${compactMoney(item.amount)}</span>
         </div>`;
       }).join("") : '<p class="home-empty">Belum ada transaksi bulan ini.</p>';
@@ -1814,6 +1907,7 @@
       renderAdvice();
       renderTransactions();
       renderHomePreview();
+      localizeUI();
     }
 
     function setMobileNavActive(targetId) {
@@ -1825,7 +1919,7 @@
       if (!target) return;
       setMobileNavActive(targetId);
       if (window.innerWidth <= 640) {
-        const view = targetId === "transactionForm" ? "add" : targetId === "reportSection" ? "report" : "dashboard";
+        const view = targetId === "transactionForm" ? "add" : targetId === "reportSection" ? "report" : targetId === "profileSection" ? "profile" : "dashboard";
         document.body.dataset.mobileView = view;
         window.scrollTo({ top: 0, behavior: "auto" });
         if (targetId === "transactionForm") window.setTimeout(() => document.querySelector("#title").focus({ preventScroll: true }), 120);
@@ -1839,12 +1933,14 @@
     document.querySelectorAll(".toggle button").forEach((button) => button.addEventListener("click", () => setType(button.dataset.type)));
     document.querySelectorAll(".mobile-nav button").forEach((button) => button.addEventListener("click", () => scrollToMobileSection(button.dataset.mobileTarget)));
     document.querySelectorAll("[data-home-report]").forEach((button) => button.addEventListener("click", () => scrollToMobileSection("reportSection")));
-    document.querySelector("#balanceVisibility").addEventListener("click", (event) => {
-      const button = event.currentTarget;
-      const hidden = document.querySelector("#balance").classList.toggle("is-hidden");
-      button.classList.toggle("is-hidden", hidden);
-      button.setAttribute("aria-pressed", String(hidden));
-      button.setAttribute("aria-label", hidden ? "Tampilkan saldo" : "Sembunyikan saldo");
+    document.querySelector("#accountShortcut").addEventListener("click", () => scrollToMobileSection("profileSection"));
+    document.querySelector("#balanceVisibility").addEventListener("click", () => setPrivacy(!privacyEnabled));
+    document.querySelector("#profilePrivacyToggle").addEventListener("click", () => setPrivacy(!privacyEnabled));
+    document.querySelector("#languageSelect").addEventListener("change", (event) => {
+      currentLanguage = event.target.value === "en" ? "en" : "id";
+      localStorage.setItem(languageKey, currentLanguage);
+      updateMonthLabel();
+      render();
     });
     document.querySelector("#mascotButton").addEventListener("click", () => {
       document.querySelector(".quick-panel").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1854,6 +1950,7 @@
         activeFilter = button.dataset.filter;
         document.querySelectorAll(".chip").forEach((chip) => chip.classList.toggle("active", chip === button));
         renderTransactions();
+        localizeUI();
       });
     });
 
@@ -1876,7 +1973,7 @@
         setStatus(isCloudConnected ? "Tersimpan di Supabase" : "Tersimpan lokal sementara", isCloudConnected);
         render();
       } catch (error) { console.error(error); setStatus("Gagal simpan: cek policy Supabase", false); }
-      finally { submitButton.disabled = false; submitButton.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>Simpan'; }
+      finally { submitButton.disabled = false; submitButton.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>Simpan'; localizeUI(); }
     });
 
     document.querySelector("#transactionList").addEventListener("click", async (event) => {
