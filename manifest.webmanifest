@@ -2,11 +2,14 @@
   "name": "RuangKas - Keuangan Keluarga",
   "short_name": "RuangKas",
   "description": "Catatan arus uang suami istri yang tenang dan jelas.",
+  "id": "./",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone"],
+  "orientation": "portrait-primary",
   "background_color": "#f4f7fb",
-  "theme_color": "#1748e8",
+  "theme_color": "#3151f5",
   "icons": [
     {
       "src": "./ruangkas-icon-192.png",
