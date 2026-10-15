@@ -67,10 +67,15 @@ const RUANGKAS_EN = {
   "Arus kas masih aman. Buat target kategori agar batas belanja bisa dipantau otomatis.": "Cash flow is healthy. Set category budgets to track spending limits.",
   "Semua target aman. Pertahankan pengeluaran harian dan tabungan": "All budgets are on track. Keep daily spending steady and savings at",
   "bulan ini.": "this month.", "per hari.": "per day.", "dari total": "of total",
-  "transaksi": "transactions", "target": "budget", "dari": "of"
+  "transaksi": "transactions", "target": "budget", "dari": "of",
+  "Selamat pagi": "Good morning", "Selamat siang": "Good afternoon", "Selamat sore": "Good evening", "Selamat malam": "Good evening",
+  "Keuangan keluarga": "Family finances", "Riwayat": "History", "Hari ini": "Today", "Kemarin": "Yesterday",
+  "Semua bulan": "All months", "Atur target": "Set budget", "Hapus?": "Delete?", "Transaksi dihapus": "Transaction deleted",
+  "Bulan sebelumnya": "Previous month", "Bulan berikutnya": "Next month", "Navigasi utama": "Main navigation"
 };
 
 const RUANGKAS_PATTERNS = [
+  [/^Target (.+)$/u, "Budget: $1"],
   [/^Keuangan keluarga (.+)$/u, "Family finances: $1"],
   [/^Kurangi (.+) minimal (.+) agar kembali sesuai target\.$/u, "Reduce $1 by at least $2 to return to budget."],
   [/^Batas aman (.+) sampai akhir bulan sekitar (.+) per hari\.$/u, "Safe daily limit for $1 until month end: about $2."],
@@ -111,7 +116,7 @@ function localizeRuangKas(root, lang) {
   while (walker.nextNode()) nodes.push(walker.currentNode);
   for (const node of nodes) {
     const parent = node.parentElement;
-    if (!parent || parent.closest("script,style,.item-main strong,.drill-item-left strong,.home-latest-copy strong,.item-main span,.drill-item-left span,.home-latest-copy span")) continue;
+    if (!parent || parent.closest("script,style,[data-user],.item-main strong,.drill-item-left strong,.home-latest-copy strong,.item-main span,.drill-item-left span,.home-latest-copy span")) continue;
     const current = node.nodeValue;
     const cached = ruangKasTextCache.get(node);
     const original = cached && current === cached.last ? cached.original : current;
